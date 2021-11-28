@@ -26,11 +26,7 @@ const generateRandomString = function (length) {
 };
 
 const buildURL = function (base, arr) {
-  let url = base + '?';
-  for (const [key, value] of Object.entries(arr)) {
-    url += key + '=' + encodeURIComponent(value) + '&';
-  }
-  return url.slice(0, -1);
+  return base + '?' + (new URLSearchParams(arr)).toString();
 }
 
 const toBase64 = function (str) {
@@ -56,15 +52,15 @@ const login = function () {
   } else if (authCode) {
     console.log('Auth Code present! ' + authCode);
 
-    const params = {
+    const params = new URLSearchParams({
       grant_type: 'authorization_code',
       code: authCode,
       redirect_uri: CURRENT_URL
-    }
+    });
 
     const options = {
       method: 'POST',
-      form: JSON.stringify(params),
+      body: params.toString(),
       headers: {
         'Authorization': 'Basic ' + toBase64(CLIENT_ID + ':' + CLIENT),
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -82,7 +78,6 @@ const login = function () {
 
     setCookie('state', state, 1);
 
-    console.log(CURRENT_URL);
     document.getElementById('login-btn').addEventListener('click', function () {
       window.location.href = buildURL(AUTH_URL,
         {
