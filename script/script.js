@@ -1,11 +1,11 @@
-const setCookie = function (cName, cValue, expHours) {
+const setCookie = (cName, cValue, expHours) => {
   let date = new Date();
   date.setTime(date.getTime() + (expHours * 60 * 60 * 1000));
   const expires = "expires=" + date.toUTCString();
   document.cookie = cName + "=" + cValue + "; " + expires + "; path=/";
 }
 
-const getCookie = function (cName) {
+const getCookie = (cName) => {
   const name = cName + "=";
   const cDecoded = decodeURIComponent(document.cookie);
   const cArr = cDecoded.split('; ');

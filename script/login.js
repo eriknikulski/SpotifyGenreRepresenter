@@ -5,7 +5,7 @@ const CLIENT_ID = 'add75f7cbf1e4278b7bea6d92edb7fea';
 const CLIENT = '5c1bc74f6eb74908ba6cfa7035084c41';
 
 
-const getURLParams = function () {
+const getURLParams = () => {
   let hashParams = {};
   let e, r = /([^&;=]+)=?([^&;]*)/g,
     q = window.location.search.substring(1);
@@ -15,7 +15,7 @@ const getURLParams = function () {
   return hashParams;
 }
 
-const generateRandomString = function (length) {
+const generateRandomString = (length) => {
   let text = '';
   let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
@@ -25,21 +25,19 @@ const generateRandomString = function (length) {
   return text;
 };
 
-const buildURL = function (base, arr) {
+const buildURL = (base, arr) => {
   return base + '?' + (new URLSearchParams(arr)).toString();
 }
 
-const toBase64 = function (str) {
+const toBase64 = (str) => {
   return btoa(unescape(encodeURIComponent(str)));
 }
 
-const login = function () {
+const login = () => {
   const accessToken = getCookie('access-token');
   const state = getCookie('state');
 
   const params = getURLParams();
-  const access_token = 'access_token' in params ? params.access_token : null;
-  const refresh_token = 'refresh_token' in params ? params.refresh_token : null;
   const authCode = 'code' in params ? params.code : getCookie('code');
   const error = 'error' in params ? params.error : null;
 
@@ -48,10 +46,8 @@ const login = function () {
   }
 
   if (accessToken) {
-    console.log('Access Token present! ' + accessToken);
+    getRecentlyPlayed();
   } else if (authCode) {
-    console.log('Auth Code present! ' + authCode);
-
     const params = new URLSearchParams({
       grant_type: 'authorization_code',
       code: authCode,
@@ -69,16 +65,15 @@ const login = function () {
 
     fetch(ACCESS_URL, options)
       .then(response => response.json())
-      .then(content => console.log(content))
+      .then(content => setCookie('access_token', content.access_token, 1))
       .catch(error => console.error(error))
   } else {
-    console.log('Getting auth code');
     const scope = 'user-read-recently-played';
     const state = generateRandomString(16);
 
     setCookie('state', state, 1);
 
-    document.getElementById('login-btn').addEventListener('click', function () {
+    document.getElementById('login-btn').addEventListener('click', () => {
       window.location.href = buildURL(AUTH_URL,
         {
           'response_type': 'code',
