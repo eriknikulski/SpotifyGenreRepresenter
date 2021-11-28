@@ -56,7 +56,7 @@ const login = function () {
   } else if (authCode) {
     console.log('Auth Code present! ' + authCode);
 
-    const body = {
+    const params = {
       grant_type: 'authorization_code',
       code: authCode,
       redirect_uri: CURRENT_URL
@@ -64,7 +64,7 @@ const login = function () {
 
     const options = {
       method: 'POST',
-      body: JSON.stringify(body),
+      params: JSON.stringify(params),
       headers: {
         'Authorization': 'Basic ' + toBase64(CLIENT_ID + ':' + CLIENT),
         'Content-Type': 'application/x-www-form-urlencoded'
