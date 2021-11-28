@@ -28,7 +28,7 @@ const generateRandomString = function (length) {
 const buildURL = function (base, arr) {
   let url = base + '?';
   for (const [key, value] of Object.entries(arr)) {
-    url += key + '=' + value + '&';
+    url += key + '=' + encodeURIComponent(value) + '&';
   }
   return url.slice(0, -1);
 }
