@@ -46,8 +46,10 @@ const login = () => {
   }
 
   if (accessToken) {
+    console.log('Access Token present!');
     getRecentlyPlayed();
   } else if (authCode) {
+    console.log('Auth Code present!');
     const params = new URLSearchParams({
       grant_type: 'authorization_code',
       code: authCode,
@@ -65,9 +67,14 @@ const login = () => {
 
     fetch(ACCESS_URL, options)
       .then(response => response.json())
-      .then(content => setCookie('access_token', content.access_token, 1))
+      .then(content => {
+        console.log(content);
+        setCookie('access_token', content.access_token, 1);
+        getRecentlyPlayed();
+      })
       .catch(error => console.error(error))
   } else {
+    console.log('Getting auth code...');
     const scope = 'user-read-recently-played';
     const state = generateRandomString(16);
 
