@@ -64,7 +64,7 @@ const login = function () {
 
     const options = {
       method: 'POST',
-      params: JSON.stringify(params),
+      form: JSON.stringify(params),
       headers: {
         'Authorization': 'Basic ' + toBase64(CLIENT_ID + ':' + CLIENT),
         'Content-Type': 'application/x-www-form-urlencoded'
