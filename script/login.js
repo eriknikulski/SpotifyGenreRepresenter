@@ -5,10 +5,10 @@ const CLIENT_ID = 'add75f7cbf1e4278b7bea6d92edb7fea';
 const CLIENT = '5c1bc74f6eb74908ba6cfa7035084c41';
 
 
-const getHashParams = function () {
+const getURLParams = function () {
   let hashParams = {};
   let e, r = /([^&;=]+)=?([^&;]*)/g,
-    q = window.location.hash.substring(1);
+    q = window.location.search.substring(1);
   while (e = r.exec(q)) {
     hashParams[e[1]] = decodeURIComponent(e[2]);
   }
@@ -41,7 +41,7 @@ const login = function () {
   const accessToken = getCookie('access-token');
   const state = getCookie('state');
 
-  const params = getHashParams();
+  const params = getURLParams();
   const access_token = 'access_token' in params ? params.access_token : null;
   const refresh_token = 'refresh_token' in params ? params.refresh_token : null;
   const authCode = 'code' in params ? params.code : getCookie('code');
