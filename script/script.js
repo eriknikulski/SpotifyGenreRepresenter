@@ -16,6 +16,13 @@ const getCookie = (cName) => {
   return res;
 }
 
+const sortObj = (obj) => {
+  return Object.keys(obj).sort().reduce((result, key) => {
+    result[key] = obj[key];
+    return result;
+  }, {});
+}
+
 const loggedIn = () => {
   document.querySelector('.pre-login').style.display = 'none';
   document.querySelector('.post-login').style.display = 'block';
