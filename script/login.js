@@ -68,7 +68,6 @@ const login = () => {
     fetch(ACCESS_URL, options)
       .then(response => response.json())
       .then(content => {
-        console.log(content);
         setCookie('access_token', content.access_token, 1);
         loggedIn();
       })
