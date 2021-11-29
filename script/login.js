@@ -47,7 +47,7 @@ const login = () => {
 
   if (accessToken) {
     console.log('Access Token present!');
-    getRecentlyPlayed();
+    loggedIn();
   } else if (authCode) {
     console.log('Auth Code present!');
     const params = new URLSearchParams({
@@ -70,7 +70,7 @@ const login = () => {
       .then(content => {
         console.log(content);
         setCookie('access_token', content.access_token, 1);
-        getRecentlyPlayed();
+        loggedIn();
       })
       .catch(error => console.error(error))
   } else {

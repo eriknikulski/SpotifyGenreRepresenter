@@ -16,6 +16,12 @@ const getCookie = (cName) => {
   return res;
 }
 
+const loggedIn = () => {
+  document.querySelector('.pre-login').style.display = 'none';
+  document.querySelector('.post-login').style.display = 'block';
+  getRecentlyPlayed();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   login();
 });

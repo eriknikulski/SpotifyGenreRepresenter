@@ -8,6 +8,9 @@ const getRecentlyPlayed = () => {
   };
   fetch(SPOTIFY_RECENTLY_PLAYED, options)
     .then(response => response.json())
-    .then(content => console.log(content))
+    .then(content => {
+      console.log(content);
+      document.querySelector('.post-login').innerHTML = JSON.stringify(content);
+    })
     .catch(err => console.error(err));
 }
