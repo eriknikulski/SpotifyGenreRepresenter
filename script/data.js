@@ -1,7 +1,7 @@
 const SPOTIFY_BASE_API = 'https://api.spotify.com/v1';
 const SPOTIFY_RECENTLY_PLAYED =  SPOTIFY_BASE_API + '/me/player/recently-played';
 const SPOTIFY_ARTIST =  SPOTIFY_BASE_API + '/artists';
-const COLOR_SCHEME = ['#9e0142', '#d53e4f', '#f46d43', '#fdae61', '#fee08b', '#ffffbf', '#e6f598', '#abdda4', '#66c2a5', '#3288bd', '#5e4fa2']
+const COLOR_SCHEME = ['#ffffbf', '#fee08b', '#fdae61', '#f46d43', '#d53e4f', '#9e0142']
 
 const getOptions = () => {
   return {
@@ -49,12 +49,14 @@ const accumulateGenres = (acc, genres) => {
 
 const buildChart = (input) => {
   input = sortObj(input);
+  const max = Math.max(...Object.values(input));
   const data = {
     labels: Object.keys(input),
     datasets: [{
       label: 'Genres',
       data: Object.values(input),
-      backgroundColor: Object.values(input).map((el, i) => COLOR_SCHEME[i % COLOR_SCHEME.length]),
+      backgroundColor: Object.values(input).map((el, i) =>
+        COLOR_SCHEME[Math.round((Math.log(el) / Math.log(max)) * (COLOR_SCHEME.length - 1))]),
       borderWidth: 1
     }]
   };
