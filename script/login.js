@@ -34,7 +34,7 @@ const toBase64 = (str) => {
 }
 
 const login = () => {
-  const accessToken = getCookie('access-token');
+  const accessToken = getCookie('access_token');
   const state = getCookie('state');
 
   const params = getURLParams();
