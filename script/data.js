@@ -159,7 +159,7 @@ const buildChart = (input) => {
           stacked: true,
           title: {
             display: true,
-            text: 'Genres'
+            text: 'Saved Tracks'
           }
         }
       }
