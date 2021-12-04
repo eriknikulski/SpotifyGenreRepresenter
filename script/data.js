@@ -152,7 +152,7 @@ const buildChart = (input) => {
         x: {
           title: {
             display: true,
-            text: 'Dates'
+            text: 'Date'
           }
         },
         y: {
