@@ -26,7 +26,7 @@ const sortObj = (obj) => {
 const loggedIn = () => {
   document.querySelector('.pre-login').style.display = 'none';
   document.querySelector('.post-login').style.display = 'block';
-  getRecentlyPlayed();
+  displaySavedTracks();
 }
 
 document.addEventListener("DOMContentLoaded", () => {

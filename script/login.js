@@ -3,6 +3,7 @@ const AUTH_URL = 'https://accounts.spotify.com/authorize';
 const CURRENT_URL = location.protocol + '//' + location.host + location.pathname;
 const CLIENT_ID = 'add75f7cbf1e4278b7bea6d92edb7fea';
 const CLIENT = '5c1bc74f6eb74908ba6cfa7035084c41';
+const PERMISSIONS = 'user-library-read';
 
 
 const getURLParams = () => {
@@ -68,13 +69,14 @@ const login = () => {
     fetch(ACCESS_URL, options)
       .then(response => response.json())
       .then(content => {
-        setCookie('access_token', content.access_token, 1);
-        loggedIn();
+        if (content.access_token) {
+          setCookie('access_token', content.access_token, 1);
+          loggedIn();
+        }
       })
       .catch(error => console.error(error))
   } else {
     console.log('Getting auth code...');
-    const scope = 'user-read-recently-played';
     const state = generateRandomString(16);
 
     setCookie('state', state, 1);
@@ -84,7 +86,7 @@ const login = () => {
         {
           'response_type': 'code',
           'client_id': CLIENT_ID,
-          'scope': scope,
+          'scope': PERMISSIONS,
           'redirect_uri': CURRENT_URL,
           'state': state
         });
