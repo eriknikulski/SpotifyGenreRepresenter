@@ -137,6 +137,7 @@ const buildChart = (input) => {
           backgroundColor: COLOR_SCHEME[(i) % (COLOR_SCHEME.length - 1)],
           borderColor: COLOR_SCHEME[(i++) % (COLOR_SCHEME.length - 1)],
           fill: true,
+          tension: 0.1,
         }
       })
   };
