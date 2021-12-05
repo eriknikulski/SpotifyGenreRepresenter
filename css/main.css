@@ -38,3 +38,10 @@ html, body {
 .post-login {
     display: none;
 }
+
+.chart-container {
+    position: relative;
+    margin: auto;
+    height: 80vh;
+    width: 80vw;
+}
