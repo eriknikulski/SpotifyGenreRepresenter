@@ -141,6 +141,17 @@ const buildChart = (input) => {
         tooltip: {
           mode: 'index'
         },
+        zoom: {
+          zoom: {
+            wheel: {
+              enabled: true,
+            },
+            pinch: {
+              enabled: true
+            },
+            mode: 'xy',
+          }
+        }
       },
       interaction: {
         mode: 'nearest',
@@ -166,6 +177,8 @@ const buildChart = (input) => {
   };
 
   const chart = new Chart(document.querySelector('.bar-chart'), config);
+  document.querySelector('.reset-zoom-btn').style.display = 'block';
+  document.querySelector('.reset-zoom-btn').addEventListener('click', () => chart.resetZoom())
 }
 
 const displaySavedTracks = () => {
