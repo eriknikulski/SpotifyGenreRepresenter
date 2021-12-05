@@ -1,7 +1,7 @@
 const SPOTIFY_BASE_API = 'https://api.spotify.com/v1';
 const SPOTIFY_SAVED_TRACKS =  SPOTIFY_BASE_API + '/me/tracks';
 const SPOTIFY_ARTIST =  SPOTIFY_BASE_API + '/artists';
-const COLOR_SCHEME = ['#9e0142', '#d53e4f', '#f46d43', '#fdae61', '#fee08b', '#ffffbf', '#e6f598', '#abdda4', '#66c2a5', '#3288bd', '#5e4fa2']
+const COLOR_SCHEME = ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a', '#ffff99', '#b15928'];
 const artistCache = {};
 
 const getOptions = () => {
