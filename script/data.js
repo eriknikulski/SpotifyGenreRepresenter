@@ -2,12 +2,14 @@ const SPOTIFY_BASE_API = 'https://api.spotify.com/v1';
 const SPOTIFY_SAVED_TRACKS =  SPOTIFY_BASE_API + '/me/tracks';
 const SPOTIFY_ARTIST =  SPOTIFY_BASE_API + '/artists';
 const COLOR_SCHEME = ['#9e0142', '#d53e4f', '#f46d43', '#fdae61', '#fee08b', '#ffffbf', '#e6f598', '#abdda4', '#66c2a5', '#3288bd', '#5e4fa2']
+const artistCache = {};
 
 const getOptions = () => {
   return {
     headers: {
       'Authorization': 'Bearer ' + getCookie('access_token'),
-    }
+    },
+    cache: 'force-cache',
   };
 }
 
@@ -32,10 +34,17 @@ const getArtistGenres = (artistID, dTime) => {
     .catch(console.error);
 }
 
+const getArtistGenresCache = (artistID, dTime) => {
+  if (!artistCache[artistID]) {
+    artistCache[artistID] = getArtistGenres(artistID, dTime);
+  }
+  return artistCache[artistID];
+}
+
 const buildGenreDS = (items) => {
   return Promise.all(items.map(item =>
     Promise.all(item.track.artists.map(artist =>
-      getArtistGenres(artist.id, item.added_at)))))
+      getArtistGenresCache(artist.id, item.added_at)))))
     .then(values => {
       let genres = {};
       values.forEach(track =>
