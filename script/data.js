@@ -146,7 +146,7 @@ const buildChart = (input) => {
     data: data,
     options: {
       responsive: true,
-      maintainAspectRatio: true,
+      maintainAspectRatio: false,
       plugins: {
         tooltip: {
           mode: 'index'
