@@ -11,9 +11,15 @@ const getOptions = () => {
   };
 }
 
-const getSavedTracks = () => {
-  return fetch(buildURL(SPOTIFY_SAVED_TRACKS, {'limit': 50}), getOptions())
+const getSavedTracks = (n, url=buildURL(SPOTIFY_SAVED_TRACKS, {'limit': 50}), acc=[]) => {
+  return fetch(url, getOptions())
     .then(response => response.json())
+    .then(content => {
+      if (n - 50 <= 0 || !content.next) {
+        return acc.concat(content.items);
+      }
+      return getSavedTracks(n - 50, content.next, acc.concat(content.items));
+    })
     .catch(console.error);
 }
 
@@ -163,8 +169,8 @@ const buildChart = (input) => {
 }
 
 const displaySavedTracks = () => {
-  getSavedTracks()
-    .then(content => buildGenreDS(content.items))
+  getSavedTracks(150)
+    .then(content => buildGenreDS(content))
     .then(genreDS => process(genreDS))
     .then(ds => selectTopK(ds, 20))
     .then(ds => buildChart(ds))
