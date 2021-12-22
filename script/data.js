@@ -193,10 +193,10 @@ const buildChart = (input) => {
 }
 
 const displaySavedTracks = () => {
-  getSavedTracks(150)
+  getSavedTracks(50)
     .then(content => buildGenreDS(content))
     .then(genreDS => process(genreDS))
-    .then(ds => selectTopK(ds, 20))
+    .then(ds => selectTopK(ds, 15))
     .then(ds => buildChart(ds))
     .catch(console.error);
 };
